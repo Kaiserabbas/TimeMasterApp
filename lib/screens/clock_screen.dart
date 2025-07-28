@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:provider/provider.dart';
+import './theme_provider.dart';
 
 class ClockScreen extends StatefulWidget {
   @override
@@ -26,6 +28,7 @@ class _ClockScreenState extends State<ClockScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeProvider>(context);
     String timeStr =
         "${_currentTime.hour.toString().padLeft(2, '0')}:${_currentTime.minute.toString().padLeft(2, '0')}:${_currentTime.second.toString().padLeft(2, '0')}";
     String dateStr =
@@ -33,7 +36,7 @@ class _ClockScreenState extends State<ClockScreen> {
 
     return Scaffold(
       body: Container(
-        color: Colors.black,
+        color: theme.backgroundColor,
         width: double.infinity,
         height: double.infinity,
         child: OrientationBuilder(
@@ -42,11 +45,23 @@ class _ClockScreenState extends State<ClockScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(timeStr,
-                      style: TextStyle(fontSize: 80, color: Colors.white)),
+                  Text(
+                    timeStr,
+                    style: TextStyle(
+                      fontSize: theme.fontSize,
+                      color: theme.textColor,
+                      fontFamily: theme.fontFamily,
+                    ),
+                  ),
                   SizedBox(height: 20),
-                  Text(dateStr,
-                      style: TextStyle(fontSize: 28, color: Colors.white70)),
+                  Text(
+                    dateStr,
+                    style: TextStyle(
+                      fontSize: 28,
+                      color: theme.textColor.withOpacity(0.7),
+                      fontFamily: theme.fontFamily,
+                    ),
+                  ),
                 ],
               ),
             );
