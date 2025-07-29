@@ -9,7 +9,6 @@ environment:
 
 dependencies:
   flutter:
-    flutter:
     sdk: flutter
   provider: ^6.1.1
   google_fonts: ^6.1.0
