@@ -41,10 +41,10 @@ All rights reserved © 2025
 
 ## 📸 Screenshots
 
-> You can add screenshots here later using:
+> Here are some screenshots:
 ```md
-![Clock Screen](assets/screenshots/clock.png)
-![Settings Screen](assets/screenshots/settings.png)
+![Clock Screen](./assets/images/screenshots/clock.jpg)
+![Settings Screen](./assets/images/screenshots/settings.jpg)
 ```
 
 ---
