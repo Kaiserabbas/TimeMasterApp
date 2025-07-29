@@ -1,19 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import './theme_provider.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+
+void _pickColor(BuildContext context, Color currentColor,
+    void Function(Color) onColorPicked) {
+  showDialog(
+    context: context,
+    builder: (ctx) {
+      Color tempColor = currentColor;
+      return AlertDialog(
+        title: Text("Pick a Color"),
+        content: SingleChildScrollView(
+          child: ColorPicker(
+            pickerColor: currentColor,
+            onColorChanged: (color) => tempColor = color,
+            showLabel: true,
+            pickerAreaHeightPercent: 0.8,
+          ),
+        ),
+        actions: [
+          TextButton(
+            child: Text("Cancel"),
+            onPressed: () => Navigator.of(ctx).pop(),
+          ),
+          ElevatedButton(
+            child: Text("Select"),
+            onPressed: () {
+              onColorPicked(tempColor);
+              Navigator.of(ctx).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
 
 class SettingsScreen extends StatelessWidget {
-  final List<String> fonts = ['Roboto', 'Monospace', 'Open Sans', 'Lato'];
-  final List<Color> colors = [
-    Colors.black,
-    Colors.white,
-    Colors.red,
-    Colors.green,
-    Colors.blue,
-    Colors.purple,
-    Colors.cyan,
-    Colors.orange,
-    Colors.grey,
+  final List<String> fonts = [
+    'Roboto',
+    'Lato',
+    'Open Sans',
+    'Orbitron',
+    'Anton',
+    'Bebas Neue',
   ];
 
   @override
@@ -23,57 +54,20 @@ class SettingsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Settings')),
       body: ListView(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         children: [
           ListTile(
             title: Text("Background Color"),
-            subtitle: Wrap(
-              spacing: 8,
-              children: colors.map((color) {
-                return GestureDetector(
-                  onTap: () => theme.setBackgroundColor(color),
-                  child: Container(
-                    width: 30,
-                    height: 30,
-                    decoration: BoxDecoration(
-                      color: color,
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: theme.backgroundColor == color
-                            ? Colors.white
-                            : Colors.transparent,
-                        width: 2,
-                      ),
-                    ),
-                  ),
-                );
-              }).toList(),
-            ),
+            trailing: CircleAvatar(backgroundColor: theme.backgroundColor),
+            onTap: () => _pickColor(
+                context, theme.backgroundColor, theme.setBackgroundColor),
           ),
           Divider(),
           ListTile(
             title: Text("Text Color"),
-            subtitle: Wrap(
-              spacing: 8,
-              children: colors.map((color) {
-                return GestureDetector(
-                  onTap: () => theme.setTextColor(color),
-                  child: Container(
-                    width: 30,
-                    height: 30,
-                    decoration: BoxDecoration(
-                      color: color,
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: theme.textColor == color
-                            ? Colors.white
-                            : Colors.transparent,
-                        width: 2,
-                      ),
-                    ),
-                  ),
-                );
-              }).toList(),
-            ),
+            trailing: CircleAvatar(backgroundColor: theme.textColor),
+            onTap: () =>
+                _pickColor(context, theme.textColor, theme.setTextColor),
           ),
           Divider(),
           ListTile(
@@ -84,7 +78,10 @@ class SettingsScreen extends StatelessWidget {
               items: fonts.map((font) {
                 return DropdownMenuItem(
                   value: font,
-                  child: Text(font, style: TextStyle(fontFamily: font)),
+                  child: Text(
+                    font,
+                    style: TextStyle(fontFamily: font),
+                  ),
                 );
               }).toList(),
             ),
@@ -96,9 +93,9 @@ class SettingsScreen extends StatelessWidget {
               value: theme.fontSize,
               min: 20,
               max: 150,
-              divisions: 16,
+              divisions: 26,
               label: theme.fontSize.toInt().toString(),
-              onChanged: (val) => theme.setFontSize(val),
+              onChanged: theme.setFontSize,
             ),
           ),
         ],
