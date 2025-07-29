@@ -40,8 +40,8 @@ All rights reserved © 2025
 ---
 
 ## 📸 Screenshots
-
-> Here are some screenshots:
+Here are some screenshots:
+> 
 ![Clock Screen](./assets/images/screenshots/clock.jpg)
 ![Settings Screen](./assets/images/screenshots/settings.jpg)
 
