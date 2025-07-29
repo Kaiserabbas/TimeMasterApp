@@ -13,28 +13,82 @@ class CreditsScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 40),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Icon(Icons.favorite, color: theme.textColor, size: 48),
-              SizedBox(height: 24),
+              // Row 1: Title
               Text(
-                "Author: Hashim Mirqal & Meeram Zahra",
-                textAlign: TextAlign.center,
+                "Authors",
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
                   color: theme.textColor,
                   fontFamily: theme.fontFamily,
                 ),
               ),
-              SizedBox(height: 16),
-              Text(
-                "All rights reserved © 2025\nMeeram & Mirqal Studio",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: theme.textColor,
-                  fontFamily: theme.fontFamily,
-                ),
+
+              // Row 2: Images + Names
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Column(
+                    children: [
+                      CircleAvatar(
+                        backgroundImage: AssetImage('assets/images/meeram.jpg'),
+                        radius: 50,
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        "Meeram Zahra",
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: theme.textColor,
+                          fontFamily: theme.fontFamily,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(width: 40),
+                  Column(
+                    children: [
+                      CircleAvatar(
+                        backgroundImage: AssetImage('assets/images/mirqal.jpg'),
+                        radius: 50,
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        "Hashim Mirqal",
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: theme.textColor,
+                          fontFamily: theme.fontFamily,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+
+              // Row 3: Footer Text
+              Column(
+                children: [
+                  SizedBox(height: 30),
+                  Text(
+                    "All Rights Reserved © 2025",
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: theme.textColor,
+                      fontFamily: theme.fontFamily,
+                    ),
+                  ),
+                  Text(
+                    "Meeram & Mirqal Studio",
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: theme.textColor,
+                      fontFamily: theme.fontFamily,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
