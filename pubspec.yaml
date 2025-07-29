@@ -19,3 +19,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+flutter_colorpicker: ^1.0.3
