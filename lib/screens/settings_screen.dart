@@ -95,7 +95,7 @@ class SettingsScreen extends StatelessWidget {
             subtitle: Slider(
               value: theme.fontSize,
               min: 20,
-              max: 100,
+              max: 150,
               divisions: 16,
               label: theme.fontSize.toInt().toString(),
               onChanged: (val) => theme.setFontSize(val),
