@@ -40,10 +40,24 @@ All rights reserved © 2025
 ---
 
 ## 📸 Screenshots
+<<<<<<< Updated upstream
 Here are some screenshots:
 > 
 ![Clock Screen](./assets/images/screenshots/clock.jpg)
 ![Settings Screen](./assets/images/screenshots/settings.jpg)
+=======
+
+> Here are some screenshots:
+```md
+<<<<<<< HEAD
+![Clock Screen](./assets/images/screenshots/clock.jpg)
+![Settings Screen](./assets/images/screenshots/settings.jpg)
+=======
+![Clock Screen](assets/screenshots/clock.jpg)
+![Settings Screen](assets/screenshots/settings.jpg)
+>>>>>>> origin/main
+```
+>>>>>>> Stashed changes
 
 ---
 
