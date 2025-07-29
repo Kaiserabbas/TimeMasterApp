@@ -42,10 +42,8 @@ All rights reserved © 2025
 ## 📸 Screenshots
 
 > Here are some screenshots:
-```md
 ![Clock Screen](./assets/images/screenshots/clock.jpg)
 ![Settings Screen](./assets/images/screenshots/settings.jpg)
-```
 
 ---
 
