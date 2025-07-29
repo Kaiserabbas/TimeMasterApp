@@ -158,27 +158,29 @@ class _TimerScreenState extends State<TimerScreen> {
             children: [
               ElevatedButton(
                 onPressed: _isRunning ? null : _startTimer,
-                child: Text('Start', style: theme.getTextStyle()),
+                child: Text('Start',
+                    style: TextStyle(fontFamily: theme.fontFamily)),
               ),
               ElevatedButton(
                 onPressed: _isRunning ? _stopTimer : null,
-                child: Text(
-                  'Pause',
-                  style: theme.getTextStyle(),
-                ),
+                child: Text('Pause',
+                    style: TextStyle(fontFamily: theme.fontFamily)),
               ),
               ElevatedButton(
                 onPressed: _resetTimer,
-                child: Text(
-                  'Reset',
-                  style: theme.getTextStyle(),
-                ),
+                child: Text('Reset',
+                    style: TextStyle(fontFamily: theme.fontFamily)),
+              ),
+              ElevatedButton(
+                onPressed: _isRunning ? _stopTimer : null,
+                child: Text('Stop',
+                    style: TextStyle(fontFamily: theme.fontFamily)),
               ),
               ElevatedButton(
                 onPressed: _isRunning ? null : _pickDuration,
                 child: Text(
                   'Set Time',
-                  style: theme.getTextStyle(),
+                  style: TextStyle(fontFamily: theme.fontFamily),
                 ),
               ),
             ],

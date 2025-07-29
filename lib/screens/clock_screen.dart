@@ -47,12 +47,17 @@ class _ClockScreenState extends State<ClockScreen> {
                 children: [
                   Text(
                     timeStr,
-                    style: theme.getTextStyle(),
+                    style: theme.getTextStyle(), // dynamic font size
                   ),
                   SizedBox(height: 20),
                   Text(
                     dateStr,
-                    style: theme.getTextStyle(),
+                    style: TextStyle(
+                      fontSize: 20, // fixed small font for date
+                      color: theme.textColor,
+                      fontFamily: theme
+                          .fontFamily, // use same font family for consistency
+                    ),
                   ),
                 ],
               ),
