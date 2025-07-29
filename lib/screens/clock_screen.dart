@@ -56,11 +56,7 @@ class _ClockScreenState extends State<ClockScreen> {
                   SizedBox(height: 20),
                   Text(
                     dateStr,
-                    style: TextStyle(
-                      fontSize: 28,
-                      color: theme.textColor.withOpacity(0.7),
-                      fontFamily: theme.fontFamily,
-                    ),
+                    style: theme.getTextStyle(),
                   ),
                 ],
               ),
