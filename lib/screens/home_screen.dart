@@ -4,6 +4,7 @@ import 'clock_screen.dart';
 import 'timer_screen.dart';
 import 'stopwatch_screen.dart';
 import 'settings_screen.dart';
+import 'credits_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -20,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
     TimerScreen(),
     StopwatchScreen(),
     SettingsScreen(),
+    CreditsScreen(), // ✅ New
   ];
 
   @override
@@ -72,6 +74,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       icon: Icon(Icons.av_timer), label: 'Stopwatch'),
                   BottomNavigationBarItem(
                       icon: Icon(Icons.settings), label: 'Settings'),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.info_outline), label: 'Credits'),
                 ],
               )
             : SizedBox.shrink(),
