@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'dart:async';
+import './theme_provider.dart';
 
 class StopwatchScreen extends StatefulWidget {
   @override
@@ -36,31 +38,35 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
   @override
   Widget build(BuildContext context) {
     final elapsed = _stopwatch.elapsed;
+    final theme = Provider.of<ThemeProvider>(context); // ✅
 
     return Scaffold(
       appBar: AppBar(title: Text('Stopwatch')),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(formatDuration(elapsed), style: TextStyle(fontSize: 60)),
+          Text(formatDuration(elapsed), style: theme.getTextStyle()), // ✅
           SizedBox(height: 40),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ElevatedButton(
                 onPressed: _stopwatch.isRunning ? null : _stopwatch.start,
-                child: Text('Start'),
+                child: Text('Start',
+                    style: TextStyle(fontFamily: theme.fontFamily)),
               ),
               ElevatedButton(
                 onPressed: _stopwatch.isRunning ? _stopwatch.stop : null,
-                child: Text('Stop'),
+                child: Text('Stop',
+                    style: TextStyle(fontFamily: theme.fontFamily)),
               ),
               ElevatedButton(
                 onPressed: () {
                   _stopwatch.reset();
                   setState(() {});
                 },
-                child: Text('Reset'),
+                child: Text('Reset',
+                    style: TextStyle(fontFamily: theme.fontFamily)),
               ),
             ],
           )
