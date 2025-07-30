@@ -7,12 +7,12 @@ void main() {
   runApp(
     ChangeNotifierProvider(
       create: (_) => ThemeProvider(),
-      child: TimeMasterApp(),
+      child: time_master_app(),
     ),
   );
 }
 
-class TimeMasterApp extends StatelessWidget {
+class time_master_app extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

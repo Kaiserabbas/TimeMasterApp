@@ -1,5 +1,5 @@
 
-name: time_master
+name: time_master_app
 description: A customizable digital time app.
 publish_to: 'none'
 version: 1.0.0+1

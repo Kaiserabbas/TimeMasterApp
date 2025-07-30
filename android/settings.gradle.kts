@@ -22,4 +22,6 @@ plugins {
     id("org.jetbrains.kotlin.android") version "2.1.0" apply false
 }
 
-include(":app")
+rootProject.name = "time_master_app" // ✅ Set your root project name
+
+include(":app") // ✅ Only include your main app module
