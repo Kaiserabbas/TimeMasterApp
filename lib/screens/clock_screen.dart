@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
 import 'package:provider/provider.dart';
 import './theme_provider.dart';
+import 'dart:async';
+import 'package:intl/intl.dart';
 
 class ClockScreen extends StatefulWidget {
   @override
@@ -29,10 +30,19 @@ class _ClockScreenState extends State<ClockScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeProvider>(context);
-    String timeStr =
-        "${_currentTime.hour.toString().padLeft(2, '0')}:${_currentTime.minute.toString().padLeft(2, '0')}:${_currentTime.second.toString().padLeft(2, '0')}";
-    String dateStr =
-        "${_currentTime.day}/${_currentTime.month}/${_currentTime.year}";
+    final is24Hour = theme.is24HourFormat;
+
+    // Time string
+    String timeStr = is24Hour
+        ? DateFormat.Hms().format(_currentTime) // 24-hour
+        : DateFormat('hh:mm:ss').format(_currentTime); // 12-hour
+
+    // AM/PM for 12-hour mode
+    String amPmStr = DateFormat('a').format(_currentTime);
+
+    // Date and weekday
+    String dateStr = DateFormat.yMMMMd().format(_currentTime);
+    String weekdayStr = DateFormat.EEEE().format(_currentTime);
 
     return Scaffold(
       body: Container(
@@ -47,18 +57,30 @@ class _ClockScreenState extends State<ClockScreen> {
                 children: [
                   Text(
                     timeStr,
-                    style: theme.getTextStyle(), // dynamic font size
+                    style: theme.getTextStyle(),
+                    textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 20),
-                  Text(
-                    dateStr,
-                    style: TextStyle(
-                      fontSize: 20, // fixed small font for date
-                      color: theme.textColor,
-                      fontFamily: theme
-                          .fontFamily, // use same font family for consistency
+                  if (!is24Hour)
+                    Text(
+                      amPmStr,
+                      style: theme
+                          .getTextStyle()
+                          .copyWith(fontSize: theme.fontSize * 0.3),
                     ),
-                  ),
+                  if (theme.showWeekday)
+                    Text(
+                      weekdayStr,
+                      style: theme
+                          .getTextStyle()
+                          .copyWith(fontSize: theme.fontSize * 0.2),
+                    ),
+                  if (theme.showDate)
+                    Text(
+                      dateStr,
+                      style: theme
+                          .getTextStyle()
+                          .copyWith(fontSize: theme.fontSize * 0.2),
+                    ),
                 ],
               ),
             );
