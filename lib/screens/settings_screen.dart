@@ -47,6 +47,13 @@ class SettingsScreen extends StatelessWidget {
     'Bebas Neue',
   ];
 
+  final Map<String, FontVariant> textVariants = {
+    'Normal': FontVariant.normal,
+    'Bold': FontVariant.bold,
+    'Italic': FontVariant.italic,
+    'Bold Italic': FontVariant.boldItalic,
+  };
+
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeProvider>(context);
@@ -71,17 +78,28 @@ class SettingsScreen extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            title: Text("Font Style"),
+            title: Text("Font Family"),
             trailing: DropdownButton<String>(
               value: theme.fontFamily,
               onChanged: (val) => theme.setFontFamily(val!),
               items: fonts.map((font) {
                 return DropdownMenuItem(
                   value: font,
-                  child: Text(
-                    font,
-                    style: TextStyle(fontFamily: font),
-                  ),
+                  child: Text(font, style: TextStyle(fontFamily: font)),
+                );
+              }).toList(),
+            ),
+          ),
+          Divider(),
+          ListTile(
+            title: Text("Text Style"),
+            trailing: DropdownButton<FontVariant>(
+              value: theme.fontVariant,
+              onChanged: (val) => theme.setFontVariant(val!),
+              items: textVariants.entries.map((entry) {
+                return DropdownMenuItem(
+                  value: entry.value,
+                  child: Text(entry.key),
                 );
               }).toList(),
             ),
@@ -97,6 +115,22 @@ class SettingsScreen extends StatelessWidget {
               label: theme.fontSize.toInt().toString(),
               onChanged: theme.setFontSize,
             ),
+          ),
+          Divider(),
+          SwitchListTile(
+            title: Text("24-Hour Format"),
+            value: theme.is24HourFormat,
+            onChanged: theme.toggleHourFormat,
+          ),
+          SwitchListTile(
+            title: Text("Show Date"),
+            value: theme.showDate,
+            onChanged: theme.toggleShowDate,
+          ),
+          SwitchListTile(
+            title: Text("Show Weekday"),
+            value: theme.showWeekday,
+            onChanged: theme.toggleShowWeekday,
           ),
         ],
       ),
