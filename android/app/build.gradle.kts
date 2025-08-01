@@ -22,9 +22,9 @@ android {
         minSdk = 21
         targetSdk = 34
 
-        // ✅ Directly use Flutter's injected properties
-        versionCode = project.property("flutter.versionCode").toString().toInt()
-        versionName = project.property("flutter.versionName").toString()
+        // ✅ Set version info directly (hardcoded for now)
+        versionCode = 1
+        versionName = "1.0.0"
     }
 
     buildTypes {
