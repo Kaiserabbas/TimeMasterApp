@@ -144,7 +144,6 @@ class _TimerScreenState extends State<TimerScreen> {
 
     return Scaffold(
       backgroundColor: theme.backgroundColor,
-      appBar: AppBar(title: Text('Timer')),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
