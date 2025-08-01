@@ -22,10 +22,9 @@ android {
         minSdk = 21
         targetSdk = 34
 
-        // ✅ Safe access to Flutter values
-        val flutter = project.extensions.getByName("flutter") as Map<String, Any>
-        versionCode = (flutter["versionCode"] as String).toInt()
-        versionName = flutter["versionName"] as String
+        // ✅ Directly use Flutter's injected properties
+        versionCode = project.property("flutter.versionCode").toString().toInt()
+        versionName = project.property("flutter.versionName").toString()
     }
 
     buildTypes {
@@ -33,8 +32,4 @@ android {
             signingConfig = signingConfigs.getByName("debug")
         }
     }
-}
-
-configure<dev.flutter.plugins.FlutterPlugin.FlutterExtension> {
-    source = "../.."
 }
