@@ -9,6 +9,7 @@ import 'screens/timer_screen.dart';
 import 'screens/stopwatch_screen.dart';
 import 'screens/settings_screen.dart';
 import 'screens/counter_screen.dart';
+import 'screens/credits_screen.dart';
 
 void main() {
   runApp(
@@ -36,6 +37,7 @@ class _TimeMasterAppState extends State<TimeMasterApp> {
     StopwatchScreen(),
     CounterScreen(), // <- New screen
     SettingsScreen(),
+    CreditsScreen(),
   ];
 
   final List<String> _titles = [
@@ -44,6 +46,7 @@ class _TimeMasterAppState extends State<TimeMasterApp> {
     'Stopwatch',
     'Counters',
     'Settings',
+    'Credits',
   ];
 
   void _onItemTapped(int index) {
@@ -104,6 +107,8 @@ class NavigationBarWidget extends StatelessWidget {
         BottomNavigationBarItem(
             icon: Icon(Icons.countertops), label: 'Counters'),
         BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.info_outline), label: 'Credits'),
       ],
     );
   }
