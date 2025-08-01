@@ -42,7 +42,6 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
     final theme = Provider.of<ThemeProvider>(context);
 
     return Scaffold(
-      appBar: AppBar(title: Text('Stopwatch')),
       body: Container(
         width: double.infinity,
         color: theme.backgroundColor,
