@@ -21,6 +21,9 @@ class Counter {
       name = nameController.text;
     });
   }
+  void dispose() {
+    nameController.dispose();
+  }
 
   Map<String, dynamic> toMap() {
     return {
