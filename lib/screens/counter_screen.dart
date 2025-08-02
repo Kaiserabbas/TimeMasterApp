@@ -18,109 +18,112 @@ class CounterScreen extends StatelessWidget {
           return Card(
             color: counter.backgroundColor,
             margin: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            child: Padding(
-              padding: EdgeInsets.all(12.0),
+            child: Container(
+              padding: EdgeInsets.all(12),
+              height: 160,
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // First Column: Counter Name
-                  Expanded(
-                    flex: 1,
-                    child: TextField(
-                      controller: TextEditingController(text: counter.name),
-                      onSubmitted: (value) =>
-                          counterProvider.updateName(counter.id, value),
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Counter Name',
-                      ),
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-
-                  // Second Column: Counter Value
+                  // Left side: Name and Centered Value
                   Expanded(
                     flex: 5,
-                    child: Center(
-                      child: Text(
-                        '${counter.value}',
-                        style: TextStyle(
-                          fontSize: 36,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Counter Name (Top Left)
+                        TextField(
+                          controller: TextEditingController(text: counter.name),
+                          onSubmitted: (value) =>
+                              counterProvider.updateName(counter.id, value),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Counter Name',
+                          ),
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "Roboto",
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
+                        Spacer(),
+                        // Counter Value (Center Center)
+                        Center(
+                          child: Text(
+                            '${counter.value}',
+                            style: TextStyle(
+                              fontSize: 48,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: "Roboto",
+                              color: const Color.fromARGB(255, 0, 0, 0),
+                            ),
+                          ),
+                        ),
+                        Spacer(),
+                      ],
                     ),
                   ),
 
-                  // Third Column: Icon Buttons in 2 columns, 3 rows
+                  // Right side: 3x2 Icon Grid
                   Expanded(
-                    flex: 1,
-                    child: Align(
-                      alignment: Alignment.topCenter,
-                      child: Table(
-                        defaultVerticalAlignment:
-                            TableCellVerticalAlignment.middle,
-                        children: [
-                          TableRow(
-                            children: [
-                              IconButton(
-                                icon: Icon(Icons.remove, color: Colors.white),
-                                onPressed: () =>
-                                    counterProvider.decrement(counter.id),
+                    flex: 3,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            _iconButton(
+                              icon: Icons.remove,
+                              onPressed: () =>
+                                  counterProvider.decrement(counter.id),
+                            ),
+                            _iconButton(
+                              icon: Icons.refresh,
+                              onPressed: () => _confirmReset(
+                                  context, counter.id, counterProvider),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            _iconButton(
+                              icon: Icons.add,
+                              onPressed: () =>
+                                  counterProvider.increment(counter.id),
+                            ),
+                            _iconButton(
+                              icon: Icons.color_lens,
+                              onPressed: () => _pickColor(
+                                context,
+                                counterProvider,
+                                counter.id,
+                                counter.backgroundColor,
                               ),
-                              IconButton(
-                                icon: Icon(Icons.refresh, color: Colors.white),
-                                onPressed: () => _confirmReset(
-                                    context, counter.id, counterProvider),
-                              ),
-                            ],
-                          ),
-                          TableRow(
-                            children: [
-                              IconButton(
-                                icon: Icon(Icons.add, color: Colors.white),
-                                onPressed: () =>
-                                    counterProvider.increment(counter.id),
-                              ),
-                              IconButton(
-                                icon:
-                                    Icon(Icons.color_lens, color: Colors.white),
-                                onPressed: () => _pickColor(
-                                  context,
-                                  counterProvider,
-                                  counter.id,
-                                  counter.backgroundColor,
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            _iconButton(
+                              icon: Icons.fullscreen,
+                              onPressed: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => FullScreenCounterView(
+                                      counterId: counter.id),
                                 ),
                               ),
-                            ],
-                          ),
-                          TableRow(
-                            children: [
-                              IconButton(
-                                icon:
-                                    Icon(Icons.fullscreen, color: Colors.white),
-                                onPressed: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => FullScreenCounterView(
-                                        counterId: counter.id),
-                                  ),
-                                ),
-                              ),
-                              IconButton(
-                                icon: Icon(Icons.delete, color: Colors.white),
-                                onPressed: () => _confirmDelete(
-                                    context, counter.id, counterProvider),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                            ),
+                            _iconButton(
+                              icon: Icons.delete,
+                              onPressed: () => _confirmDelete(
+                                  context, counter.id, counterProvider),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -133,6 +136,14 @@ class CounterScreen extends StatelessWidget {
         onPressed: () => counterProvider.addCounter(),
         child: Icon(Icons.add),
       ),
+    );
+  }
+
+  Widget _iconButton(
+      {required IconData icon, required VoidCallback onPressed}) {
+    return IconButton(
+      icon: Icon(icon, color: Colors.white),
+      onPressed: onPressed,
     );
   }
 
