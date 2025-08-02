@@ -8,13 +8,19 @@ class Counter {
   String name;
   int value;
   Color backgroundColor;
+  late TextEditingController nameController;
 
   Counter({
     required this.id,
     required this.name,
     required this.value,
     required this.backgroundColor,
-  });
+  }) {
+    nameController = TextEditingController(text: name);
+    nameController.addListener(() {
+      name = nameController.text;
+    });
+  }
 
   Map<String, dynamic> toMap() {
     return {
@@ -89,6 +95,7 @@ class CounterProvider extends ChangeNotifier {
   void updateName(String id, String newName) {
     final counter = _counters.firstWhere((c) => c.id == id);
     counter.name = newName;
+    counter.nameController.text = newName;
     saveCounters();
     notifyListeners();
   }
@@ -120,6 +127,12 @@ class CounterProvider extends ChangeNotifier {
     _counters = storedList
         .map((jsonStr) => Counter.fromMap(json.decode(jsonStr)))
         .toList();
+    for (var counter in _counters) {
+      counter.nameController = TextEditingController(text: counter.name);
+      counter.nameController.addListener(() {
+        counter.name = counter.nameController.text;
+      });
+    }
     notifyListeners();
   }
 }

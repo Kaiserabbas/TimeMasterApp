@@ -31,8 +31,8 @@ class CounterScreen extends StatelessWidget {
                       children: [
                         // Counter Name (Top Left)
                         TextField(
-                          controller: TextEditingController(text: counter.name),
-                          onSubmitted: (value) =>
+                          controller: counter.nameController,
+                          onChanged: (value) =>
                               counterProvider.updateName(counter.id, value),
                           decoration: InputDecoration(
                             border: InputBorder.none,
@@ -41,10 +41,10 @@ class CounterScreen extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            fontFamily: "Roboto",
                             color: Colors.white,
                           ),
                         ),
+
                         Spacer(),
                         // Counter Value (Center Center)
                         Center(
