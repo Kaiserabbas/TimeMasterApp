@@ -3,6 +3,10 @@ import 'package:provider/provider.dart';
 import './theme_provider.dart';
 import 'dart:async';
 import 'package:intl/intl.dart';
+import 'dart:io' show Platform;
+import 'package:flutter/services.dart';
+import 'package:wakelock/wakelock.dart'
+    if (dart.library.io) 'fake_wakelock.dart';
 
 class ClockScreen extends StatefulWidget {
   @override
@@ -19,11 +23,23 @@ class _ClockScreenState extends State<ClockScreen> {
     _timer = Timer.periodic(Duration(seconds: 1), (_) {
       setState(() => _currentTime = DateTime.now());
     });
+
+    if (Platform.isAndroid || Platform.isIOS) {
+      Wakelock.enable();
+    }
+    SystemChrome.setEnabledSystemUIMode(
+        SystemUiMode.immersiveSticky); // Fullscreen
   }
 
   @override
   void dispose() {
     _timer.cancel();
+
+    if (Platform.isAndroid || Platform.isIOS) {
+      Wakelock.disable();
+    }
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge); // Restore UI
+
     super.dispose();
   }
 
