@@ -101,5 +101,36 @@ void main() {
 
       expect(provider.counters.first.name, 'Updated Counter');
     });
+    testWidgets('Confirm reset and delete actions show dialog', (tester) async {
+      final provider = CounterProvider();
+      provider.addCounter();
+
+      await tester.pumpWidget(
+        ChangeNotifierProvider<CounterProvider>.value(
+          value: provider,
+          child: MaterialApp(
+            home: CounterScreen(),
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+
+      // Test reset confirmation
+      final resetIcon = find.widgetWithIcon(IconButton, Icons.refresh);
+      await tester.tap(resetIcon);
+      await tester.pumpAndSettle();
+      expect(find.textContaining('Are you sure'), findsOneWidget);
+
+      // Dismiss dialog
+      await tester.tap(find.text('Cancel'));
+      await tester.pumpAndSettle();
+
+      // Test delete confirmation
+      final deleteIcon = find.widgetWithIcon(IconButton, Icons.delete);
+      await tester.tap(deleteIcon);
+      await tester.pumpAndSettle();
+      expect(find.textContaining('Are you sure'), findsOneWidget);
+    });
   });
 }
